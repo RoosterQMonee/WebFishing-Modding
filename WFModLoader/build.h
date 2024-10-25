@@ -1,11 +1,8 @@
 #pragma once
 
-#include <cstdint>
+#include "structs.h"
 
-struct Version {
-	uint8_t Major;
-	uint8_t Minor;
-	bool PreRelease;
+class BuildInfo {
+public:
+	static inline Version CurrentVersion = Version{ 1, 0, 'a' };
 };
-
-

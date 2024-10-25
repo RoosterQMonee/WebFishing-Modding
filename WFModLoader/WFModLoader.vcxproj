@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="build.h" />
+    <ClInclude Include="structs.h" />
     <ClInclude Include="Utils\Logger.h" />
     <ClInclude Include="Utils\Memory.h" />
   </ItemGroup>
