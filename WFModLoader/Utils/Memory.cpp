@@ -1,5 +1,7 @@
 #include "Memory.h"
 #include "Logger.h"
+#include "Misc.h"
+
 #include <TlHelp32.h>
 
 
@@ -67,13 +69,33 @@ void GetAllPartialWindows(std::vector<DWORD>& pids) {
 // Memory Class
 
 
-void Memory::Init(LPCSTR windowTitle) {
+void Memory::Init(LPCSTR windowTitle, bool autoLaunch) {
     std::vector<DWORD> pids;
     std::vector<HWND> handles;
 
     GetAllPartialWindows(pids);
-    GetAllWindowsFromProcessID(pids.at(0), handles);
 
+    if (pids.size() < 1) {
+        Logger::Write<LogLevel::ERR>("Memory", "WebFishing isn't running!");
+
+        if (autoLaunch) {
+            long long ctime = Misc::CurrentMs();
+
+            Logger::Write<LogLevel::INFO>("Memory", "Launching WebFishing...");
+            system("start steam://launch/3146520");
+
+            do {
+                GetAllPartialWindows(pids);
+                Sleep(1000);
+
+                if ((Misc::CurrentMs() - ctime) > 10000) break;
+            } while (pids.size() < 1);
+            Sleep(5000); // just to give the game some time to load
+        }
+        else goto failed;
+    }
+
+    GetAllWindowsFromProcessID(pids.at(0), handles);
     Memory::gameHandle = handles.at(0);
     
     if (!Memory::gameHandle) {

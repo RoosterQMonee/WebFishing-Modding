@@ -149,6 +149,7 @@
     <ClInclude Include="SDK\structs.h" />
     <ClInclude Include="Utils\Data.h" />
     <ClInclude Include="Utils\Logger.h" />
+    <ClInclude Include="Utils\Misc.h" />
     <ClInclude Include="Utils\System.h" />
     <ClInclude Include="WFCore\Config\Steam.h" />
     <ClInclude Include="WFCore\Core.h" />

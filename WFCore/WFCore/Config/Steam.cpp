@@ -44,6 +44,7 @@ std::string Steam::FindLibraryFolder() {
     if (steamLibraryFolder.empty()) {
         return "bad-library";
     }
+    return steamLibraryFolder;
 }
 
 std::string Steam::FindWFPath() {

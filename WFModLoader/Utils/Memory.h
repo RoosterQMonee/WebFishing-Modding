@@ -9,6 +9,6 @@ public:
 	static inline HWND gameHandle = nullptr;
 	static inline DWORD processID = 0;
 
-	static void Init(LPCSTR windowTitle);
+	static void Init(LPCSTR windowTitle, bool autoLaunch = false);
 	static bool LLInject(const char* filepath);
 };
