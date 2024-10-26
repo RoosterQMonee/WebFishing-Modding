@@ -12,10 +12,11 @@ Experimental mod loader for [WebFishing](https://store.steampowered.com/app/3146
 #### Questions
 
 1. Does this work?
-* if you're reading this no (im either updating/fixing it or forgot to update the repo)
+> yes :)
 
 2. Where do i put mods?
-* note to dev(s) you should totally like, add the mod folder here later
+> `(WEBFISHING)/wfmodder/mods`
 
 3. How do i make mods?
-* dunno yet, most likely through an SDK and a template project
+> Check the template mod!
+> (hopefully) docs will be added soon!
