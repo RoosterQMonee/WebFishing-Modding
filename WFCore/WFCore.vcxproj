@@ -151,18 +151,22 @@
     <ClInclude Include="Utils\Logger.h" />
     <ClInclude Include="Utils\Misc.h" />
     <ClInclude Include="Utils\System.h" />
+    <ClInclude Include="WFCore\Config\Files.h" />
     <ClInclude Include="WFCore\Config\Steam.h" />
     <ClInclude Include="WFCore\Core.h" />
     <ClInclude Include="WFCore\CoreExt.h" />
     <ClInclude Include="WFCore\Mods\Exports.h" />
+    <ClInclude Include="WFCore\Mods\Loader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Utils\Logger.cpp" />
     <ClCompile Include="Utils\System.cpp" />
+    <ClCompile Include="WFCore\Config\Files.cpp" />
     <ClCompile Include="WFCore\Config\Steam.cpp" />
     <ClCompile Include="WFCore\Core.cpp" />
     <ClCompile Include="WFCore\CoreExt.cpp" />
+    <ClCompile Include="WFCore\Mods\Loader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

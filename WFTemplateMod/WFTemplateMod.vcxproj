@@ -152,6 +152,7 @@
     <ClCompile Include="Utils\Logger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SDK\SDK.h" />
     <ClInclude Include="TemplateMod\Mod.h" />
     <ClInclude Include="Utils\Logger.h" />
   </ItemGroup>

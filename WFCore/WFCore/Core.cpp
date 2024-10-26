@@ -2,11 +2,13 @@
 
 #include <WFCore/Core.h>
 #include <WFCore/Config/Steam.h>
+#include <WFCore/Config/Files.h>
 
 #include <Utils/Data.h>
 #include <Utils/Logger.h>
 
 #include <WFCore/Mods/Exports.h>
+#include <WFCore/Mods/Loader.h>
 
 
 void WFCore::Init() {
@@ -29,6 +31,9 @@ void WFCore::Init() {
         Logger::Write<LogLevel::ERR>("Debug", "Cannot locate WebFishing folder! Please select the correct folder.");
         ManualSearch(WFCore::WFDirectory != "" ? WFCore::WFDirectory : "C:/");
     }
+
+    Files::CheckFileStructure(WFCore::WFDirectory);
+    ModLoader::LoadMods(WFCore::WFDirectory + "\\wfmodder\\mods");
 
     Logger::Write<LogLevel::INFO>("WFCore", "Found WebFishing folder at ", WFCore::WFDirectory);
 
