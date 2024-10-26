@@ -45,6 +45,12 @@
     <ClInclude Include="Utils\Misc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WFCore\CoreExt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WFCore\Mods\Exports.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -60,6 +66,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Utils\System.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WFCore\CoreExt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
