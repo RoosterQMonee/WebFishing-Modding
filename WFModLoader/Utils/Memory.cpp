@@ -1,9 +1,80 @@
 #include "Memory.h"
 #include "Logger.h"
+#include <TlHelp32.h>
+
+
+// Helper funcs
+
+
+bool IsWFExecutable(const PROCESSENTRY32W& entry) {
+    return std::wstring(entry.szExeFile) == L"webfishing.exe";
+}
+
+BOOL CALLBACK enumWindowsProc(HWND hwnd, LPARAM lParam) {
+    const auto& pids = *reinterpret_cast<std::vector<DWORD>*>(lParam);
+
+    DWORD winId;
+    GetWindowThreadProcessId(hwnd, &winId);
+
+    for (DWORD pid : pids) {
+        if (winId == pid) {
+            std::wstring title(GetWindowTextLength(hwnd) + 1, L'\0');
+            GetWindowTextW(hwnd, &title[0], title.size());
+        }
+    }
+
+    return TRUE;
+}
+
+void GetAllWindowsFromProcessID(DWORD dwProcessID, std::vector <HWND>& vhWnds)
+{
+    HWND hCurWnd = nullptr;
+    do
+    {
+        hCurWnd = FindWindowEx(nullptr, hCurWnd, nullptr, nullptr);
+        DWORD checkProcessID = 0;
+        GetWindowThreadProcessId(hCurWnd, &checkProcessID);
+        if (checkProcessID == dwProcessID)
+            vhWnds.push_back(hCurWnd);
+
+    } while (hCurWnd != nullptr);
+}
+
+void GetAllPartialWindows(std::vector<DWORD>& pids) {
+
+    HANDLE snap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    auto cleanupSnap = [snap] { CloseHandle(snap); };
+
+    PROCESSENTRY32W entry;
+    entry.dwSize = sizeof entry;
+
+    if (!Process32FirstW(snap, &entry)) {
+        cleanupSnap();
+        Logger::Write<LogLevel::ERR>("Memory", "Cannot find webfishing.exe!");
+        return;
+    }
+
+    do {
+        if (IsWFExecutable(entry))
+            pids.emplace_back(entry.th32ProcessID);
+    } while (Process32NextW(snap, &entry));
+    cleanupSnap();
+
+    EnumWindows(enumWindowsProc, reinterpret_cast<LPARAM>(&pids));
+}
+
+
+// Memory Class
 
 
 void Memory::Init(LPCSTR windowTitle) {
-    Memory::gameHandle = FindWindowA(windowTitle, NULL);
+    std::vector<DWORD> pids;
+    std::vector<HWND> handles;
+
+    GetAllPartialWindows(pids);
+    GetAllWindowsFromProcessID(pids.at(0), handles);
+
+    Memory::gameHandle = handles.at(0);
     
     if (!Memory::gameHandle) {
         Logger::Write<LogLevel::ERR>("Memory", "Cannot find ", windowTitle, "!");
@@ -24,7 +95,7 @@ failed:
 }
 
 
-bool Memory::LLInject(char* filepath)
+bool Memory::LLInject(const char* filepath)
 {
     HANDLE hProcess, hThread;
     SIZE_T bytesWritten;

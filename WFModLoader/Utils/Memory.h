@@ -10,5 +10,5 @@ public:
 	static inline DWORD processID = 0;
 
 	static void Init(LPCSTR windowTitle);
-	static bool LLInject(char* filepath);
+	static bool LLInject(const char* filepath);
 };
