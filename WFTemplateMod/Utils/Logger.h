@@ -41,8 +41,6 @@ public:
             MessageBoxA(NULL, "Failed getting WriteLine from WFCore", "Debug", NULL);
 
         GetModName();
-
-        Logger::Write<LogLevel::INFO>("Init", "Created Console");
     }
 
     template<LogLevel ll, class T, class ... U >
